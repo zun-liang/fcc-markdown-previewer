@@ -2,7 +2,7 @@ import Editor from "./components/Editor";
 import Previewer from "./components/Previewer";
 import "./App.css";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const AppBox = styled.div`
   width: 100%;
@@ -11,9 +11,16 @@ const AppBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
 `;
 
 const App = () => {
+  const [fullSize, setFullSize] = useState(false);
+  const handleFullSize = () => setFullSize((prev) => !prev);
+
+  const initialText = "";
+  const [text, setText] = useState(initialText);
+
   const setAppHeight = () => {
     const doc = document.documentElement;
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);
@@ -28,8 +35,17 @@ const App = () => {
   return (
     <main>
       <AppBox>
-        <Editor />
-        <Previewer />
+        <Editor
+          fullSize={fullSize}
+          handleFullSize={handleFullSize}
+          text={text}
+          setText={setText}
+        />
+        <Previewer
+          fullSize={fullSize}
+          handleFullSize={handleFullSize}
+          text={text}
+        />
       </AppBox>
     </main>
   );

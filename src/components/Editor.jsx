@@ -1,35 +1,56 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFreeCodeCamp } from "@fortawesome/free-brands-svg-icons";
 import {
   faMaximize,
   faDownLeftAndUpRightToCenter,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  FCCIcon,
+  StyledIcon,
+  SharedBox,
+  SharedToolbar,
+} from "../assets/styles";
 
-const EditorBox = styled.div`
+const EditorBox = styled(SharedBox)`
   width: 600px;
   min-height: 200px;
+  max-height: var(--app-height);
 `;
-const Toolbar = styled.div`
-  background-color: #4aa3a3;
-  padding: 0.3rem;
-  border: 1px solid #1d2f2f;
-  box-shadow: 1px 1px 10px 2px #3a5f5f;
-  display: flex;
-`;
-const StyledIcon = styled(FontAwesomeIcon)``;
+const Toolbar = styled(SharedToolbar)``;
+
 const StyledP = styled.p``;
-const StyledTextArea = styled.textarea``;
-const Editor = () => {
+const StyledTextArea = styled.textarea`
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 200px;
+  background-color: #c0d8d8;
+  overflow-y: scroll;
+`;
+
+const Editor = ({ fullSize, handleFullSize, text, setText }) => {
+  const handleChange = (e) => setText(e.target.value);
   return (
     <EditorBox>
       <Toolbar>
-        <StyledIcon icon={faFreeCodeCamp} />
+        <FCCIcon icon={faFreeCodeCamp} />
         <StyledP>Editor</StyledP>
-        <StyledIcon icon={faMaximize} />
-        <StyledIcon icon={faDownLeftAndUpRightToCenter} />
+        {fullSize ? (
+          <StyledIcon
+            icon={faDownLeftAndUpRightToCenter}
+            onClick={handleFullSize}
+          />
+        ) : (
+          <StyledIcon icon={faMaximize} onClick={handleFullSize} />
+        )}
       </Toolbar>
-      <StyledTextArea id="editor" name="editor" placeholder="" />
+      <StyledTextArea
+        id="editor"
+        name="editor"
+        value={text}
+        onChange={handleChange}
+      />
     </EditorBox>
   );
 };
