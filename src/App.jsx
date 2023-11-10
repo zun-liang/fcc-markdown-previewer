@@ -7,7 +7,10 @@ import { useEffect } from "react";
 const AppBox = styled.div`
   width: 100%;
   height: var(--app-height);
-  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const App = () => {

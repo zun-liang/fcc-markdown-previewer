@@ -5,7 +5,7 @@ const StyledTextArea = styled.textarea``;
 const Previewer = () => {
   return (
     <PreviewerBox>
-      <StyledTextArea id="previewer" name="previewer" placeholder="" />
+      <StyledTextArea id="preview" name="preview" placeholder="" />
     </PreviewerBox>
   );
 };
