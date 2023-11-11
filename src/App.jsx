@@ -3,22 +3,24 @@ import Previewer from "./components/Previewer";
 import "./App.css";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { initialText } from "./markdown";
 
 const AppBox = styled.div`
+  padding: 1rem;
   width: 100%;
   height: var(--app-height);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
 `;
 
 const App = () => {
-  const [fullSize, setFullSize] = useState(false);
-  const handleFullSize = () => setFullSize((prev) => !prev);
+  const [editorFullSize, setEditorFullSize] = useState(false);
+  const handleEditorFullSize = () => setEditorFullSize((prev) => !prev);
+  const [previewFullSize, setPreviewFullSize] = useState(false);
+  const handlePreviewFullSize = () => setPreviewFullSize((prev) => !prev);
 
-  const initialText = "";
   const [text, setText] = useState(initialText);
 
   const setAppHeight = () => {
@@ -36,14 +38,16 @@ const App = () => {
     <main>
       <AppBox>
         <Editor
-          fullSize={fullSize}
-          handleFullSize={handleFullSize}
+          editorFullSize={editorFullSize}
+          previewFullSize={previewFullSize}
+          handleEditorFullSize={handleEditorFullSize}
           text={text}
           setText={setText}
         />
         <Previewer
-          fullSize={fullSize}
-          handleFullSize={handleFullSize}
+          editorFullSize={editorFullSize}
+          previewFullSize={previewFullSize}
+          handlePreviewFullSize={handlePreviewFullSize}
           text={text}
         />
       </AppBox>

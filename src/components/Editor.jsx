@@ -14,7 +14,7 @@ import {
 
 const EditorBox = styled(SharedBox)`
   width: 600px;
-  min-height: 200px;
+  height: ${({ $fullSize }) => ($fullSize ? "100%" : "auto")};
   max-height: var(--app-height);
 `;
 const Toolbar = styled(SharedToolbar)``;
@@ -25,33 +25,47 @@ const StyledTextArea = styled.textarea`
   min-width: 100%;
   max-width: 100%;
   min-height: 200px;
+  height: calc(100% - 2rem);
   background-color: #c0d8d8;
   overflow-y: scroll;
+  outline: none;
+  padding: 5px;
+  font-size: 0.875rem;
 `;
 
-const Editor = ({ fullSize, handleFullSize, text, setText }) => {
+const Editor = ({
+  editorFullSize,
+  previewFullSize,
+  handleEditorFullSize,
+  text,
+  setText,
+}) => {
   const handleChange = (e) => setText(e.target.value);
   return (
-    <EditorBox>
-      <Toolbar>
-        <FCCIcon icon={faFreeCodeCamp} />
-        <StyledP>Editor</StyledP>
-        {fullSize ? (
-          <StyledIcon
-            icon={faDownLeftAndUpRightToCenter}
-            onClick={handleFullSize}
+    <>
+      {!previewFullSize && (
+        <EditorBox $fullSize={editorFullSize}>
+          <Toolbar>
+            <FCCIcon icon={faFreeCodeCamp} />
+            <StyledP>Editor</StyledP>
+            {editorFullSize ? (
+              <StyledIcon
+                icon={faDownLeftAndUpRightToCenter}
+                onClick={handleEditorFullSize}
+              />
+            ) : (
+              <StyledIcon icon={faMaximize} onClick={handleEditorFullSize} />
+            )}
+          </Toolbar>
+          <StyledTextArea
+            id="editor"
+            name="editor"
+            value={text}
+            onChange={handleChange}
           />
-        ) : (
-          <StyledIcon icon={faMaximize} onClick={handleFullSize} />
-        )}
-      </Toolbar>
-      <StyledTextArea
-        id="editor"
-        name="editor"
-        value={text}
-        onChange={handleChange}
-      />
-    </EditorBox>
+        </EditorBox>
+      )}
+    </>
   );
 };
 
