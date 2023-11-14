@@ -1,18 +1,21 @@
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+
 import Editor from "./components/Editor";
 import Previewer from "./components/Previewer";
-import "./App.css";
-import styled from "styled-components";
-import { useState, useEffect } from "react";
 import { initialText } from "./markdown";
 
+import "./App.css";
+
 const AppBox = styled.div`
-  padding: 1rem;
+  padding: 1.2rem;
   width: 100%;
   height: var(--app-height);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
+  overflow: auto;
 `;
 
 const App = () => {
