@@ -1,36 +1,41 @@
-/* eslint-disable react/prop-types */
-import styled from "styled-components";
 import { faFreeCodeCamp } from "@fortawesome/free-brands-svg-icons";
 import {
-  faMaximize,
   faDownLeftAndUpRightToCenter,
+  faMaximize,
 } from "@fortawesome/free-solid-svg-icons";
+/* eslint-disable react/prop-types */
+import styled from "styled-components";
+
 import {
   FCCIcon,
-  StyledIcon,
   SharedBox,
   SharedToolbar,
+  StyledIcon,
 } from "../assets/styles";
 
 const EditorBox = styled(SharedBox)`
-  width: 600px;
-  height: ${({ $fullSize }) => ($fullSize ? "100%" : "auto")};
-  max-height: var(--app-height);
+  width: 80%;
+  height: ${({ $fullSize }) => ($fullSize ? "var(--app-height)" : "auto")};
+  @media (min-width: 850px) {
+    width: 600px;
+  }
 `;
 const Toolbar = styled(SharedToolbar)``;
 
 const StyledP = styled.p``;
 const StyledTextArea = styled.textarea`
   width: 100%;
-  min-width: 100%;
-  max-width: 100%;
+  height: ${({ $fullSize }) =>
+    $fullSize ? "calc(var(--app-height) - 2rem)" : "calc(100% - 2rem)"};
   min-height: 200px;
-  height: calc(100% - 2rem);
-  background-color: #c0d8d8;
+  background-color: var(--light-green);
+  box-shadow: 1px 1px 5px 2px var(--dark-green);
+  resize: ${({ $fullSize }) => ($fullSize ? "none" : "vertical")};
   overflow-y: scroll;
   outline: none;
-  padding: 5px;
+  padding: 8px 5px;
   font-size: 0.875rem;
+  border: 1px solid var(--very-dark-green);
 `;
 
 const Editor = ({
@@ -62,6 +67,7 @@ const Editor = ({
             name="editor"
             value={text}
             onChange={handleChange}
+            $fullSize={editorFullSize}
           />
         </EditorBox>
       )}
