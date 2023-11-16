@@ -1,34 +1,97 @@
-/* eslint-disable react/prop-types */
-import styled from "styled-components";
-import { marked } from "marked";
-import parse from "html-react-parser";
 import { faFreeCodeCamp } from "@fortawesome/free-brands-svg-icons";
 import {
-  faMaximize,
   faDownLeftAndUpRightToCenter,
+  faMaximize,
 } from "@fortawesome/free-solid-svg-icons";
+
+import parse from "html-react-parser";
+
+/* eslint-disable react/prop-types */
+import styled from "styled-components";
+
+import { Marked } from "marked";
+import { markedHighlight } from "marked-highlight";
+import hljs from "highlight.js";
+
 import {
   FCCIcon,
-  StyledIcon,
   SharedBox,
   SharedToolbar,
+  StyledIcon,
 } from "../assets/styles";
+import "highlight.js/styles/atom-one-light.css";
 
 const PreviewerBox = styled(SharedBox)`
-  width: 800px;
+  width: 95%;
   height: auto;
+  @media (min-width: 850px) {
+    width: 800px;
+  }
 `;
-const Toolbar = styled(SharedToolbar)`
-  border: 1px solid #1d2f2f;
-`;
+const Toolbar = styled(SharedToolbar)``;
 const StyledP = styled.p``;
 const PreviewContainer = styled.div`
   width: 100%;
   height: calc(auto - 2rem);
-  background-color: #c0d8d8;
+  background-color: var(--light-green);
+  border: 1px solid var(--very-dark-green);
+  box-shadow: 1px 1px 5px 2px var(--dark-green);
   padding: 2rem 1rem;
   font-family: sans-serif;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  & > h1 {
+    border-bottom: 2px solid var(--darker-green);
+  }
+  & > h2 {
+    border-bottom: 1px solid var(--darker-green);
+  }
+  & > blockquote {
+    border-left: 3px solid var(--darker-green);
+    color: var(--darker-green);
+    padding-left: 5px;
+    margin-left: 25px;
+  }
+  & > p > code,
+  & > code {
+    background-color: white;
+    padding: 3px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  & > pre {
+    background-color: white;
+    line-height: 1.2;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  & > p > img {
+    display: block;
+    width: 90%;
+    margin: 1rem auto 0;
+  }
+  & > table {
+    border: 2px solid var(--darker-green);
+    border-collapse: collapse;
+    text-align: center;
+  }
+  & > table > thead > tr > th,
+  & > table > tbody > tr > td {
+    border: 2px solid var(--darker-green);
+    padding-left: 5px;
+  }
+  & > ul,
+  & > ol,
+  & > ul > li > ul,
+  & > ol > li > ol,
+  & > ul > li > ul > li > ul,
+  & > ol > li > ol > li > ol,
+  & > ul > li > ul > li > ul > li > ul,
+  & > ol > li > ol > li > ol > li > ol {
+    padding-left: 2.5rem;
+  }
 `;
 
 const Previewer = ({
@@ -37,6 +100,21 @@ const Previewer = ({
   handlePreviewFullSize,
   text,
 }) => {
+  const marked = new Marked(
+    markedHighlight({
+      langPrefix: "hljs language-",
+      highlight(code, lang) {
+        const language = hljs.getLanguage(lang) ? lang : "plaintext";
+        return hljs.highlight(code, { language }).value;
+      },
+    })
+  );
+
+  marked.use({ breaks: true });
+  const styledText = text.replace(/\n```([\s\S]*?)\n```/g, (match, code) => {
+    return `\n\`\`\`javascript${code}\n\`\`\``;
+  });
+
   return (
     <>
       {!editorFullSize && (
@@ -54,7 +132,7 @@ const Previewer = ({
             )}
           </Toolbar>
           <PreviewContainer id="preview">
-            {parse(marked.parse(text))}
+            {parse(marked.parse(styledText))}
           </PreviewContainer>
         </PreviewerBox>
       )}
