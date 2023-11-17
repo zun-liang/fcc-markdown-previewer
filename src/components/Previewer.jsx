@@ -65,6 +65,8 @@ const PreviewContainer = styled.div`
     margin: 1rem auto 0;
   }
   & > table {
+    width: auto;
+    table-layout: auto;
     border: 2px solid var(--darker-green);
     border-collapse: collapse;
     text-align: center;
