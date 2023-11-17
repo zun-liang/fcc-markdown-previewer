@@ -6,36 +6,27 @@ import {
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 
-import {
-  FCCIcon,
-  SharedBox,
-  SharedToolbar,
-  StyledIcon,
-} from "../assets/styles";
+import { FCCIcon, Toolbar, StyledIcon } from "../assets/styles";
 
-const EditorBox = styled(SharedBox)`
+const EditorBox = styled.div`
   width: 80%;
-  height: ${({ $fullSize }) => ($fullSize ? "var(--app-height)" : "auto")};
   @media (min-width: 850px) {
     width: 600px;
   }
 `;
-const Toolbar = styled(SharedToolbar)``;
-
-const StyledP = styled.p``;
 const StyledTextArea = styled.textarea`
   width: 100%;
   height: ${({ $fullSize }) =>
     $fullSize ? "calc(var(--app-height) - 2rem)" : "calc(100% - 2rem)"};
   min-height: 200px;
+  padding: 8px 5px;
   background-color: var(--light-green);
   box-shadow: 1px 1px 5px 2px var(--dark-green);
-  resize: ${({ $fullSize }) => ($fullSize ? "none" : "vertical")};
-  overflow-y: scroll;
-  outline: none;
-  padding: 8px 5px;
-  font-size: 0.875rem;
   border: 1px solid var(--very-dark-green);
+  outline: none;
+  resize: ${({ $fullSize }) => ($fullSize ? "none" : "vertical")};
+  overflow-y: auto;
+  font-size: 0.875rem;
 `;
 
 const Editor = ({
@@ -49,10 +40,10 @@ const Editor = ({
   return (
     <>
       {!previewFullSize && (
-        <EditorBox $fullSize={editorFullSize}>
+        <EditorBox>
           <Toolbar>
             <FCCIcon icon={faFreeCodeCamp} />
-            <StyledP>Editor</StyledP>
+            <p>Editor</p>
             {editorFullSize ? (
               <StyledIcon
                 icon={faDownLeftAndUpRightToCenter}

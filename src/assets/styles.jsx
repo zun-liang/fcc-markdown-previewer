@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const SharedBox = styled.div``;
-export const SharedToolbar = styled.div`
+export const Toolbar = styled.div`
   width: 100%;
   height: 2rem;
   background-color: var(--green);

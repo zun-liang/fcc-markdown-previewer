@@ -8,9 +8,9 @@ import { initialText } from "./markdown";
 import "./App.css";
 
 const AppBox = styled.div`
-  padding: 1.2rem;
   width: 100%;
   height: var(--app-height);
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -13,32 +13,24 @@ import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 
-import {
-  FCCIcon,
-  SharedBox,
-  SharedToolbar,
-  StyledIcon,
-} from "../assets/styles";
+import { FCCIcon, Toolbar, StyledIcon } from "../assets/styles";
 import "highlight.js/styles/atom-one-light.css";
 
-const PreviewerBox = styled(SharedBox)`
+const PreviewerBox = styled.div`
   width: 95%;
-  height: auto;
   @media (min-width: 850px) {
     width: 800px;
   }
 `;
-const Toolbar = styled(SharedToolbar)``;
-const StyledP = styled.p``;
 const PreviewContainer = styled.div`
   width: 100%;
   height: calc(auto - 2rem);
+  padding: 2rem 1rem;
   background-color: var(--light-green);
   border: 1px solid var(--very-dark-green);
   box-shadow: 1px 1px 5px 2px var(--dark-green);
-  padding: 2rem 1rem;
-  font-family: sans-serif;
   line-height: 1.5;
+  font-family: sans-serif;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -121,7 +113,7 @@ const Previewer = ({
         <PreviewerBox $fullSize={previewFullSize}>
           <Toolbar>
             <FCCIcon icon={faFreeCodeCamp} />
-            <StyledP>Previewer</StyledP>
+            <p>Previewer</p>
             {previewFullSize ? (
               <StyledIcon
                 icon={faDownLeftAndUpRightToCenter}
